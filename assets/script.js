@@ -42,9 +42,9 @@ animateCircles();
 
 
 const movementsOfLetters = {
-  upAndDown: 100,     // ±100% up/down movement
-  leftAndRight: 100,  // ±100% left/right movement
-  rotation: 40        // ±40 degrees rotation
+  upAndDown: 35,     // ±100% up/down movement
+  leftAndRight: 35,  // ±100% left/right movement
+  rotation: 35        // ±40 degrees rotation
 };
 
 const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;

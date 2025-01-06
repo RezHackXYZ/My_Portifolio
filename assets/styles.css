@@ -10,6 +10,11 @@ body {
 
 #infoAndProjects {
   display: flex;
+  justify-content: space-between;
+}
+
+#infoAndLinks {
+  width: 43vw;
 }
 
 #header {
@@ -75,8 +80,7 @@ body {
   font-weight: 400;
   font-style: normal;
   color: #ffffff;
-  width: 40vw;
-  overflow-x: hidden;
+  width: 100%;
 }
 
 
@@ -244,13 +248,181 @@ h2 {
 
 #titleInfo > span {
   color: #ff975b;
+
+}
+
+.hackerText {
   font-family: 'Space Mono', monospace;
   border-radius: 20px;
   padding: 5px;
 }
 
-#titleInfo > span:hover {
-  background-color: #ff975b;;
+.hackerText:hover {
+  background-color: #ffffff ;;
   color: black;
-  
+}
+
+/* Optional: Adjust the space */
+.space {
+  display: inline-block;
+  width: 0.5ch; /* Adjust space width if necessary */
+}
+
+/* Use non-breaking space for space characters */
+.word>.letter >.space {
+  content: '\00a0'; /* Non-breaking space */
+}
+
+a {
+  text-decoration: none;
+}
+
+#text:has(.word:hover) .word:not(.word:hover) {
+  opacity: 0.2;
+}
+
+.word span {
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.button {
+  line-height: 1;
+  height: 3rem;
+  margin-top: 2rem;
+  text-decoration: none;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--clr);
+  color: #fff;
+  border-radius: 10rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.3s;
+}
+
+.button__icon-wrapper {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  color: var(--clr);
+  background-color: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.button:hover {
+  background-color: #000;
+}
+
+.button:hover .button__icon-wrapper {
+  color: #000;
+}
+
+.button__icon-svg--copy {
+  position: absolute;
+  transform: translate(-150%, 150%);
+}
+
+.button:hover .button__icon-svg:first-child {
+  transition: transform 0.3s ease-in-out;
+  transform: translate(150%, -150%);
+}
+
+.button:hover .button__icon-svg--copy {
+  transition: transform 0.3s ease-in-out 0.1s;
+  transform: translate(0);
+}
+
+
+#myProjects {
+  outline: 1px solid hsla(24, 100%, 50%, 0.151);
+  width: 45vw;
+  margin: 40px;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#bitMoreInfo > h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-family: "Space Grotesk", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+p {
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: "Space Grotesk", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+/**
+ * This container element is used to layout the title and button for the "My
+ * Projects" section. It is a flex container with its children laid out
+ * horizontally and spaced evenly apart.
+ */
+#TitelAndButtonForprojects {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box {
+  outline: 1px solid hsla(24, 100%, 50%, 0.151);
+  width: 30vw;
+  height: 50vh;
+  margin: 40px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#boxOfBoxes {
+  position: relative;
+}
+
+#box1 {
+  background-color: #ff0000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+
+#box2 {
+  background-color: #00ff00;
+  position: absolute;
+  top: 0;
+  left: 5vw;
+  z-index: 3;
+}
+
+#box3 {
+  background-color: #0000ff;
+  position: absolute;
+  top: 0;
+  left: 10vw;
+  z-index: 2;
 }

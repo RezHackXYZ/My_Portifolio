@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background-color: #0F0F0F;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .card-container {
+    position: relative;
+    width: 20vw;
+    height: 50vh;
+  }
+
+  .card {
+    position: absolute;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    transform-origin: center center;
+    padding: 24px;
+  }
+
+  #card1 {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-5deg);
+    z-index: 3;
+    background: #FF69B4;
+  }
+
+  #card2 {
+    width: 90%;
+    height: 90%;
+    transform: rotate(0deg) translateX(100px);
+    z-index: 2;
+    background: #FF4040;
+  }
+
+  #card3 {
+    width: 80%;
+    height: 80%;
+    transform: rotate(5deg) translateX(200px);
+    z-index: 1;
+    background: #FFA500;
+  }
+</style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card" id="card1"></div>
+    <div class="card" id="card2"></div>
+    <div class="card" id="card3"></div>
+  </div>
+
+
+    <script>
+        
+    </script>
+</body>
+</html>
