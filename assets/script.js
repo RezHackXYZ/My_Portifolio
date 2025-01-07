@@ -40,62 +40,95 @@ function animateCircles() {
 
 animateCircles();
 
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-const movementsOfLetters = {
-  upAndDown: 35,     // ±100% up/down movement
-  leftAndRight: 35,  // ±100% left/right movement
-  rotation: 35        // ±40 degrees rotation
-};
+let interval = null;
 
-const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-const enhanceAllFancy = () => {
-document.querySelectorAll(".fancy").forEach(element => {
-  const text = element.innerText.split("");
-  element.innerText = "";
-  const outers = []; 
-  
-  text.forEach((value, index) => {
-    const outer = document.createElement("span");
-    outer.className = "outer";
-    outers.push(outer);
-    
-    const inner = document.createElement("span");
-    inner.className = "inner";
-    inner.style.animationDelay = `${rand(-5000, 0)}ms`;
-    
-    const letter = document.createElement("span");
-    letter.className = "letter";
-    letter.innerText = value;
-    letter.style.animationDelay = `${index * 1000}ms`;
-    
-    inner.appendChild(letter);
-    outer.appendChild(inner);
-    element.appendChild(outer);
-  });
+// Only apply to elements with the class 'hackerText'
+document.querySelectorAll(".hackerText").forEach(element => {
+  element.onmouseover = event => {
+    let iteration = 0;
 
-  let isHovered = false;
-  element.addEventListener("mouseenter", () => {
-    if (!isHovered) {
-      isHovered = true;
-      outers.forEach(outer => {
-        const tx = (Math.random() * movementsOfLetters.leftAndRight * 2) - movementsOfLetters.leftAndRight;
-        const ty = (Math.random() * movementsOfLetters.upAndDown * 2) - movementsOfLetters.upAndDown;
-        const rot = (Math.random() * movementsOfLetters.rotation * 2) - movementsOfLetters.rotation;
-        outer.style.transform = `translate(${tx}%, ${ty}%) rotate(${rot}deg)`;
-      });
-    }
-  });
+    clearInterval(interval);
 
-  element.addEventListener("mouseleave", () => {
-    isHovered = false;
-    outers.forEach(outer => {
-      outer.style.transform = "translate(0%, 0%) rotate(0deg)";
+    interval = setInterval(() => {
+      event.target.innerText = event.target.innerText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return event.target.dataset.value[index];
+          }
+
+          return letters[Math.floor(Math.random() * 26)];
+        })
+        .join("");
+
+      if (iteration >= event.target.dataset.value.length) {
+        clearInterval(interval);
+      }
+
+      iteration += 1 / 3;
+    }, 30);
+  };
+});
+
+  const cardContainer = document.querySelector('.card-container');
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+
+  const cards = [
+    document.getElementById('card1'),
+    document.getElementById('card2'),
+    document.getElementById('card3')
+  ];
+
+  let activeCard = cards[0];
+
+  cards.forEach(card => {
+    card.addEventListener('mousedown', (e) => {
+      if (card !== activeCard) return;  // Prevent dragging lower cards
+      isDragging = true;
+      startX = e.clientX;
     });
   });
-});
-}
-enhanceAllFancy();
 
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    currentX = e.clientX - startX;
+    activeCard.style.transform = `translateX(${currentX}px) rotate(-5deg)`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    activeCard.style.transition = 'transform 0.3s ease';
+    activeCard.style.transform = 'translateX(200px) rotate(5deg)';
+    activeCard.style.width = '80%';
+    activeCard.style.height = '80%';
+    activeCard.style.zIndex = '1';
+
+    cards[1].style.transition = 'transform 0.3s ease';
+    cards[1].style.transform = 'rotate(-5deg)';
+    cards[1].style.width = '100%';
+    cards[1].style.height = '100%';
+    cards[1].style.zIndex = '3';
+
+    cards[2].style.transition = 'transform 0.3s ease';
+    cards[2].style.transform = 'translateX(100px) rotate(0deg)';
+    cards[2].style.width = '90%';
+    cards[2].style.height = '90%';
+    cards[2].style.zIndex = '2';
+
+    // Cycle the cards
+    setTimeout(() => {
+      cardContainer.appendChild(activeCard);
+      cards.push(cards.shift());
+      activeCard = cards[0];
+    }, 300);
+  });
+
+  
 let start = new Date().getTime();
 
 const originPosition = { x: 0, y: 0 };
@@ -177,92 +210,65 @@ const handleOnMove = e => {
 window.onmousemove = handleOnMove;
 window.ontouchmove = e => handleOnMove(e.touches[0]);
 document.body.onmouseleave = () => last.mousePosition = originPosition;
+const movementsOfLetters = {
+  upAndDown: 35,
+  leftAndRight: 35,
+  rotation: 35
+};
 
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const enhanceAllFancy = () => {
+  document.querySelectorAll(".fancy").forEach(element => {
+    const text = element.innerText.split("");
+    element.innerText = "";
+    const outers = [];
 
-let interval = null;
+    text.forEach((value, index) => {
+      const outer = document.createElement("span");
+      outer.className = "outer";
+      outers.push(outer);
 
-// Only apply to elements with the class 'hackerText'
-document.querySelectorAll(".hackerText").forEach(element => {
-  element.onmouseover = event => {
-    let iteration = 0;
+      const inner = document.createElement("span");
+      inner.className = "inner";
+      inner.style.animationDelay = `${rand(-1000, 0)}ms`;  // Faster random start
 
-    clearInterval(interval);
+      const letter = document.createElement("span");
+      letter.className = "letter";
 
-    interval = setInterval(() => {
-      event.target.innerText = event.target.innerText
-        .split("")
-        .map((letter, index) => {
-          if (index < iteration) {
-            return event.target.dataset.value[index];
-          }
-
-          return letters[Math.floor(Math.random() * 26)];
-        })
-        .join("");
-
-      if (iteration >= event.target.dataset.value.length) {
-        clearInterval(interval);
+      if (value === " ") {
+        letter.innerHTML = "&nbsp;";
+        letter.classList.add("space");
+      } else {
+        letter.innerText = value;
       }
 
-      iteration += 1 / 3;
-    }, 30);
-  };
-});
+      // Reduce delay to 100ms per letter
+      letter.style.animationDelay = `${index * 100}ms`;
 
-const cardContainer = document.querySelector('.card-container');
-let isDragging = false;
-let startX = 0;
-let currentX = 0;
+      inner.appendChild(letter);
+      outer.appendChild(inner);
+      element.appendChild(outer);
+    });
 
-const cards = [
-  document.getElementById('card1'),
-  document.getElementById('card2'),
-  document.getElementById('card3')
-];
+    element.addEventListener("mouseenter", () => {
+      outers.forEach(outer => {
+        const tx = (Math.random() * movementsOfLetters.leftAndRight * 2) - movementsOfLetters.leftAndRight;
+        const ty = (Math.random() * movementsOfLetters.upAndDown * 2) - movementsOfLetters.upAndDown;
+        const rot = (Math.random() * movementsOfLetters.rotation * 2) - movementsOfLetters.rotation;
 
-let activeCard = cards[0];
+        outer.style.transition = "transform 0.3s ease-in-out";  // Faster hover effect
+        outer.style.transform = `translate(${tx}%, ${ty}%) rotate(${rot}deg)`;
+      });
+    });
 
-cards.forEach(card => {
-  card.addEventListener('mousedown', (e) => {
-    if (card !== activeCard) return;  // Prevent dragging lower cards
-    isDragging = true;
-    startX = e.clientX;
+    element.addEventListener("mouseleave", () => {
+      outers.forEach(outer => {
+        outer.style.transition = "transform 0.3s ease-in-out";  // Faster reset
+        outer.style.transform = "translate(0%, 0%) rotate(0deg)";
+      });
+    });
   });
-});
+};
 
-document.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-  currentX = e.clientX - startX;
-  activeCard.style.transform = `translateX(${currentX}px) rotate(-5deg)`;
-});
-
-document.addEventListener('mouseup', () => {
-  if (!isDragging) return;
-  isDragging = false;
-  activeCard.style.transition = 'transform 0.3s ease';
-  activeCard.style.transform = 'translateX(200px) rotate(5deg)';
-  activeCard.style.width = '80%';
-  activeCard.style.height = '80%';
-  activeCard.style.zIndex = '1';
-
-  cards[1].style.transition = 'transform 0.3s ease';
-  cards[1].style.transform = 'rotate(-5deg)';
-  cards[1].style.width = '100%';
-  cards[1].style.height = '100%';
-  cards[1].style.zIndex = '3';
-
-  cards[2].style.transition = 'transform 0.3s ease';
-  cards[2].style.transform = 'translateX(100px) rotate(0deg)';
-  cards[2].style.width = '90%';
-  cards[2].style.height = '90%';
-  cards[2].style.zIndex = '2';
-
-  // Cycle the cards
-  setTimeout(() => {
-    cardContainer.appendChild(activeCard);
-    cards.push(cards.shift());
-    activeCard = cards[0];
-  }, 300);
-});
+enhanceAllFancy();
