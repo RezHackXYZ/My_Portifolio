@@ -272,3 +272,42 @@ const enhanceAllFancy = () => {
 };
 
 enhanceAllFancy();
+
+// Define cardss array
+const cardss = [
+  document.getElementById('card1'),
+  document.getElementById('card2'),
+  document.getElementById('card3')
+];
+
+// Function to get 3 random projects from the config
+function getRandomProjects(config, count = 3) {
+  const keys = Object.keys(config);
+  const randomProjects = [];
+  while (randomProjects.length < count) {
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    if (!randomProjects.includes(config[randomKey])) {
+      randomProjects.push(config[randomKey]);
+    }
+  }
+  return randomProjects;
+}
+
+// Function to populate the cardss with project details
+function populatecardss(cardss, projects) {
+  cardss.forEach((card, index) => {
+    const project = projects[index];
+    card.innerHTML = `
+      <img src="${project.image}" alt="${project.Titel}" style="width: 100%; height: auto; border-radius: 10px;">
+      <h2>${project.Titel}</h2>
+      <p>${project.discription}</p>
+      <a href="${project.link}" target="_blank">View Project</a>
+    `;
+  });
+}
+
+// Get random projects and populate the cardss
+const projectsConfig = ConfigForProjectsInHtml;
+const randomProjects = getRandomProjects(projectsConfig);
+populatecardss(cardss, randomProjects);
+
