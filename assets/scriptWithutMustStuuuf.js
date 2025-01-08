@@ -72,62 +72,6 @@ document.querySelectorAll(".hackerText").forEach(element => {
   };
 });
 
-  const cardContainer = document.querySelector('.card-container');
-  let isDragging = false;
-  let startX = 0;
-  let currentX = 0;
-
-  const cards = [
-    document.getElementById('card1'),
-    document.getElementById('card2'),
-    document.getElementById('card3')
-  ];
-
-  let activeCard = cards[0];
-
-  cards.forEach(card => {
-    card.addEventListener('mousedown', (e) => {
-      if (card !== activeCard) return;  // Prevent dragging lower cards
-      isDragging = true;
-      startX = e.clientX;
-    });
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    currentX = e.clientX - startX;
-    activeCard.style.transform = `translateX(${currentX}px) rotate(-5deg)`;
-  });
-
-  document.addEventListener('mouseup', () => {
-    if (!isDragging) return;
-    isDragging = false;
-    activeCard.style.transition = 'transform 0.3s ease';
-    activeCard.style.transform = 'translateX(200px) rotate(5deg)';
-    activeCard.style.width = '80%';
-    activeCard.style.height = '80%';
-    activeCard.style.zIndex = '1';
-
-    cards[1].style.transition = 'transform 0.3s ease';
-    cards[1].style.transform = 'rotate(-5deg)';
-    cards[1].style.width = '100%';
-    cards[1].style.height = '100%';
-    cards[1].style.zIndex = '3';
-
-    cards[2].style.transition = 'transform 0.3s ease';
-    cards[2].style.transform = 'translateX(100px) rotate(0deg)';
-    cards[2].style.width = '90%';
-    cards[2].style.height = '90%';
-    cards[2].style.zIndex = '2';
-
-    // Cycle the cards
-    setTimeout(() => {
-      cardContainer.appendChild(activeCard);
-      cards.push(cards.shift());
-      activeCard = cards[0];
-    }, 300);
-  });
-
   
 let start = new Date().getTime();
 
@@ -272,42 +216,3 @@ const enhanceAllFancy = () => {
 };
 
 enhanceAllFancy();
-
-// Define cardss array
-const cardss = [
-  document.getElementById('card1'),
-  document.getElementById('card2'),
-  document.getElementById('card3')
-];
-
-// Function to get 3 random projects from the config
-function getRandomProjects(config, count = 3) {
-  const keys = Object.keys(config);
-  const randomProjects = [];
-  while (randomProjects.length < count) {
-    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-    if (!randomProjects.includes(config[randomKey])) {
-      randomProjects.push(config[randomKey]);
-    }
-  }
-  return randomProjects;
-}
-
-// Function to populate the cardss with project details
-function populatecardss(cardss, projects) {
-  cardss.forEach((card, index) => {
-    const project = projects[index];
-    card.innerHTML = `
-      <img src="${project.image}" alt="${project.Titel}" style="width: 100%; height: auto; border-radius: 10px;">
-      <h2>${project.Titel}</h2>
-      <p>${project.discription}</p>
-      <a href="${project.link}" target="_blank"><button class="buttonOfCard">View Project</button></a>
-    `;
-  });
-}
-
-// Get random projects and populate the cardss
-const projectsConfig = ConfigForProjectsInHtml;
-const randomProjects = getRandomProjects(projectsConfig);
-populatecardss(cardss, randomProjects);
-
