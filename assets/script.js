@@ -129,69 +129,6 @@ document.querySelectorAll(".hackerText").forEach(element => {
   });
 
   
-let start = new Date().getTime();
-
-const originPosition = { x: 0, y: 0 };
-
-const last = {
-  starTimestamp: start,
-  starPosition: originPosition,
-  mousePosition: originPosition
-}
-
-const config = {
-  starAnimationDuration: 1500,
-  minimumTimeBetweenStars: 250,
-  minimumDistanceBetweenStars: 75,
-  sizes: ["3rem", "2.5rem", "2rem"],
-  animations: ["fall-1", "fall-2", "fall-3"]
-}
-
-const images = [
-  "https://cloud-krh2v5mik-hack-club-bot.vercel.app/0code_24dp_e8eaed_fill0_wght400_grad0_opsz24.svg",
-  "https://cloud-krh2v5mik-hack-club-bot.vercel.app/1html_24dp_e8eaed_fill0_wght400_grad0_opsz24.svg",
-  "https://cloud-krh2v5mik-hack-club-bot.vercel.app/2css_24dp_e8eaed_fill0_wght400_grad0_opsz24.svg",
-  "https://cloud-krh2v5mik-hack-club-bot.vercel.app/3javascript_24dp_e8eaed_fill0_wght400_grad0_opsz24.svg"
-];
-
-let count = 0;
-  
-const rands = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
-      selectRandom = items => items[rands(0, items.length - 1)];
-
-const withUnit = (value, unit) => `${value}${unit}`,
-      px = value => withUnit(value, "px"),
-      ms = value => withUnit(value, "ms");
-
-const calcDistance = (a, b) => {
-  const diffX = b.x - a.x,
-        diffY = b.y - a.y;
-  
-  return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-}
-
-const calcElapsedTime = (start, end) => end - start;
-
-const appendElement = element => document.body.appendChild(element),
-      removeElement = (element, delay) => setTimeout(() => document.body.removeChild(element), delay);
-
-const createStar = position => {
-  const star = document.createElement("img"),
-        imageSrc = selectRandom(images);
-  
-  star.className = "star";
-  star.src = imageSrc;
-  star.style.left = px(position.x);
-  star.style.top = px(position.y);
-  star.style.width = selectRandom(config.sizes);
-  star.style.height = "auto";
-  star.style.animationName = config.animations[count++ % 3];
-  star.style.animationDuration = ms(config.starAnimationDuration);
-  
-  appendElement(star);
-  removeElement(star, config.starAnimationDuration);
-}
-
 const handleOnMove = e => {
   const mousePosition = { x: e.clientX, y: e.clientY }
   
