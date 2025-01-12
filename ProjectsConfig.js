@@ -26,7 +26,13 @@ var ConfigForProjectsInHtml = {
     5: {
         image : "https://cloud-m3v0wxjgy-hack-club-bot.vercel.app/0image.png",
         Titel : "Better Github",
-        discription: "A dynamic and interactive birthday party countdown website.",
-        link: "https://et.atb.quest"
+        discription: "A modern, responsive GitHub profile viewer with enhanced UI and real-time data fetching capabilities.",
+        link: "https://bg.atb.quest"
+    },
+    6: {
+        image : "https://cloud-mqq3rpv2h-hack-club-bot.vercel.app/0image.png",
+        Titel : "A Cube Timer",
+        discription: "A minimalist web-based timer for speedcubing with real-time statistics tracking. (its bad use cubedesk.io that's better)",
+        link: "https://ct.atb.quest"
     }
 }
