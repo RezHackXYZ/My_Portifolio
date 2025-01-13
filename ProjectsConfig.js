@@ -34,5 +34,11 @@ var ConfigForProjectsInHtml = {
         Titel : "A Cube Timer",
         discription: "A minimalist web-based timer for speedcubing with real-time statistics tracking. (its bad use cubedesk.io that's better)",
         link: "https://ct.atb.quest"
+    },
+    7: {
+        image : "https://cloud-1tyiukb0w-hack-club-bot.vercel.app/0image.png",
+        Titel : "Ammazing Maze Game",
+        discription: "A web-based maze game built with HTML, CSS, and JavaScript featuring custom maze sizes, animations, and high scores.",
+        link: "https://maze.atb.quest"
     }
 }
